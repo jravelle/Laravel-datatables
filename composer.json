@@ -1,6 +1,6 @@
 {
-    "name": "singlequote/laravel-datatables",
-    "description": "This repo contains a Datatable that can render a filterable and sortable table. It aims to be very lightweight and easy to use. It has support for retrieving data asynchronously, pagination and recursive searching in relations",
+    "name": "jravelle/laravel-datatables",
+    "description": "This repo is forked from singlequote/Laravel-datatables.",
     "keywords": [
         "Datatables",
         "Laravel",
@@ -9,7 +9,7 @@
     ],
     "homepage": "https://github.com/singlequote/Laravel-datatables",
     "license": "MIT",
-    "version": "3.1.2",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Wim Pruiksma",
