@@ -87,6 +87,20 @@ abstract class ColumnBuilder
     public $rememberPage = true;
 
     /**
+     * Save the current state of the page
+     *
+     * @var bool
+     */
+    public $stateSave = false;
+
+    /**
+     * Set the table responsitivy
+     *
+     * @var bool
+     */
+    public $responsiveTable = false;
+
+    /**
      * When set to true.
      * The package will load the required files when datatables is not loaded.
      *

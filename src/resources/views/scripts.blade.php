@@ -33,6 +33,11 @@
         let filters = ``;
         let filterSearch = ``;
         let table{{ $view->tableId }};
+        let exportableColumns = [];
+
+        $('th.col-exportable').each(function(idx) {
+            exportableColumns.push(idx);
+        });
         //END CONFIGS
 
         //FILTERS
@@ -105,6 +110,8 @@
             "paging": true,
             "processing": true,
             "serverSide": true,
+            "stateSave": {!! $view->stateSave !!},
+            "responsive": {!! $view->responsiveTable !!},
             "dom" : "{!! $view->dom !!}",
             "ajax": `${uri}${mark}laravel-datatables=active&tableId={{ $view->tableId }}&id={{ $view->id }}${filters}${filterSearch}`,
             "pageLength" : {{ $view->pageLength }},
@@ -166,7 +173,45 @@
                     "targets": {{ $def["target"] }}
                 },
                 @endforeach
-            ]
+            ],
+            "buttons": [
+                {
+                    extend: 'reload',
+                    text: 'Limpar Filtro',
+                    action: function ( e, dt, node, config ) {
+                        dt.search('').draw();
+                    }
+                }, {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    exportOptions: {
+                        columns: exportableColumns,
+                    }
+                }, {
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    exportOptions: {
+                        columns: exportableColumns,
+                    }
+                }, {
+                    extend: 'csvHtml5',
+                    text: 'Csv',
+                    exportOptions: {
+                        columns: exportableColumns
+                    }
+                }, {
+                    extend: 'pdfHtml5',
+                    text: 'Pdf',
+                    orientation: 'landscape',
+                    customize: function (doc) {
+                        doc.content[1].table.widths =
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                    },
+                    exportOptions: {
+                        columns: exportableColumns
+                    }
+                }
+            ],
         };
         @if($view->rememberPage)
             if(getParameterFromUrl('datatables-page')){
